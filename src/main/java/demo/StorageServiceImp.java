@@ -21,35 +21,33 @@ public class StorageServiceImp implements StorageService {
 		if (!this.myStorage.containsKey(key)) {
 			this.myStorage.put(key, value);
 			return new KeyValuePair(key, value);
+		} else {
+			throw new KeyAlreadyExistsException("The value you trying to insert is already exists.");
 		}
-		
-		//TODO else throw exception ?
-		
-		return null;
 	}
 
 	@Override
 	public Map<String, Object> getValueByKey(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.myStorage.get(key);
 	}
 
 	@Override
 	public void updateExistingValue(String key, Map<String, Object> updatedValue) {
-		// TODO Auto-generated method stub
-		
+		if (this.myStorage.containsKey(key)) {
+			this.myStorage.put(key, updatedValue);
+		}
 	}
 
 	@Override
 	public void deleteValueByKey(String key) {
-		// TODO Auto-generated method stub
-		
+		if (this.myStorage.containsKey(key)) {
+			this.myStorage.remove(key);
+		}
 	}
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		this.myStorage.clear();
 	}
 
 	@Override
